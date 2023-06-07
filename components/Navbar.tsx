@@ -8,7 +8,6 @@ const Navbar = (props: Props) => {
   return (
     <nav className="flex items-center justify-between p-5">
       <span>ChitChat</span>
-
       <div className="flex items-center gap-5">
         <ThemeChanger />
         <span>name</span>

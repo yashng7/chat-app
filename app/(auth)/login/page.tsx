@@ -16,6 +16,7 @@ import { AiOutlineGithub, AiOutlineGoogle } from "react-icons/ai";
 import { signIn } from "next-auth/react";
 import { toast } from "react-hot-toast";
 import { ThemeProvider } from "next-themes";
+import { Loader2 } from "lucide-react";
 
 export function CreateAccount() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -73,6 +74,13 @@ export function CreateAccount() {
             <Button className="w-full">Create account</Button>
           </CardFooter>
         </Card>
+        {isLoading ? (
+          <Card className="absolute flex items-center justify-center w-full h-screen">
+            <Loader2 className="animate-spin" />
+          </Card>
+        ) : (
+          ""
+        )}
       </div>
     </ThemeProvider>
   );

@@ -60,8 +60,8 @@ const AddFriendForm: FC = () => {
     addFriend(data.email);
   };
   return (
-    <div className="flex items-center justify-center h-screen">
-      <Card className="p-5 sm:w-1/2">
+    <div className="flex items-center justify-center w-full">
+      <Card className="p-5">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -76,9 +76,11 @@ const AddFriendForm: FC = () => {
                   <FormDescription>
                     Add your Email to send Friend request
                   </FormDescription>
-                  <FormMessage/>
+                  <FormMessage />
                   {showSuccessState ? (
-                    <FormMessage className="text-green-300">Friend request sent!</FormMessage>
+                    <FormMessage className="text-green-300">
+                      Friend request sent!
+                    </FormMessage>
                   ) : null}
                 </FormItem>
               )}

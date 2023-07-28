@@ -13,7 +13,7 @@ export default function SignOutButton() {
 
   return (
     <Button
-      variant="ghost"
+      variant="link"
       onClick={async () => {
         setIsSigningOut(true);
         try {

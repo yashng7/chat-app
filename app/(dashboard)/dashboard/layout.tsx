@@ -3,11 +3,12 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import SignOutButton from "@/components/SignOutButton";
-import { notFound } from "next/navigation";
 import { ReactNode } from "react";
 import { SidebarOption } from "@/types/typings";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { redirect } from "next/navigation";
+import FriendRequestSidebarOption from "@/components/FriendRequestSidebarOption";
 
 interface LayoutProps {
   children: ReactNode;
@@ -29,9 +30,14 @@ const sidebarOptions: SidebarOption[] = [
 
 const Layout = async ({ children }: LayoutProps) => {
   const session = await getServerSession(authOptions);
-  if (!session) notFound();
 
-  const namesArray = session.user.name?.trim().split(/\s+/);
+  if (!session) {
+    redirect("/");
+  }
+
+  
+
+  const namesArray = session?.user?.name?.trim().split(/\s+/);
 
   const initials = namesArray
     ?.map((name) => name.charAt(0))
@@ -54,27 +60,29 @@ const Layout = async ({ children }: LayoutProps) => {
               <div className="text-xs font-semibold leading-6 text-primary">
                 Overview
               </div>
-              <ul role="list" className="mt-2 -mx-2 space-y-1">
+              <ul role="list" className="mt-2 space-y-1">
                 {sidebarOptions.map((option) => {
                   const Icon = Icons[option.Icon];
                   return (
                     <li key={option.id}>
-                      <Button variant="outline" className="w-full">
-                        <Link
-                          href={option.href}
-                          className="flex items-center justify-center gap-3"
-                        >
+                      <Link href={option.href}>
+                        <Button variant="outline" className="w-full gap-3">
                           <span className="truncate">{option.name}</span>
                           <Icon className="w-4 h-4" />
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </li>
                   );
                 })}
               </ul>
             </li>
+
+            <li>
+              <FriendRequestSidebarOption  />
+            </li>
+
             <li className="flex items-center mt-auto -mx-6">
-              <div className="flex items-center flex-1 px-5 py-3 text-sm font-semibold leading-6">
+              <div className="flex items-center flex-1 gap-1 px-5 py-3 text-sm font-semibold leading-6">
                 <Avatar className="relative w-8 h-8">
                   <AvatarImage
                     src={session.user.image || ""}

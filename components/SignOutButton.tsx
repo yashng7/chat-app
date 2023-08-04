@@ -1,5 +1,4 @@
 "use client";
-
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -14,21 +13,25 @@ export default function SignOutButton() {
   return (
     <Button
       variant="link"
-      onClick={async () => {
-        setIsSigningOut(true);
-        try {
-          await signOut();
-        } catch (error) {
-          toast({
-            title: "Error",
-            description: "There was a problem signing out",
-            // action: (
-            //   <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
-            // ),
-          });
-        } finally {
-          setIsSigningOut(false);
-        }
+      // onClick={async () => {
+      //   setIsSigningOut(true);
+      //   try {
+      //     await signOut();
+      //   } catch (error) {
+      //     toast({
+      //       title: "Error",
+      //       description: "There was a problem signing out",
+      //       // action: (
+      //       //   <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
+      //       // ),
+      //     });
+      //   } finally {
+      //     setIsSigningOut(false);
+      //   }
+      // }}
+      onClick={(event) => {
+        event.preventDefault();
+        signOut().catch(console.error);
       }}
     >
       {isSigningOut ? (
